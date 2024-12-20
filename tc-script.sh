@@ -21,11 +21,7 @@ if ! sudo ipset list $IPSET_NAME &>/dev/null; then
     sudo ipset create $IPSET_NAME hash:net
 else
     echo "ipset '$IPSET_NAME' already exists."
-    read -p "Do you want to clear it? (y/(no is default)) : " answer
-
-    if [ "$answer" == "y" ]; then
-        sudo ipset flush $IPSET_NAME
-    fi
+    sudo ipset flush $IPSET_NAME
 fi
 
 echo "Adding networks from $NETWORKS_FILE to $IPSET_NAME"

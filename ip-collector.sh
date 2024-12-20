@@ -54,9 +54,7 @@ echo "$skipped_ip_counter ip's were skipped"
 
 #Delete duplicates
 echo "Elemets before cleanup: $(wc -l $NETWORKS_FILE)"
-cat $NETWORKS_FILE
 echo "Starting cleanup"
 sudo grep -Eo '([0-9]{1,3}\.){2}0\.0' $NETWORKS_FILE | sort -u > $NETWORKS_FILE.tmp && sudo mv $NETWORKS_FILE.tmp $NETWORKS_FILE
 echo "Cleanup finished"
 echo "Elemets after cleanup: $(wc -l $NETWORKS_FILE)"
-cat $NETWORKS_FILE
