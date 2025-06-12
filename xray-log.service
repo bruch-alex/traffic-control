@@ -1,0 +1,13 @@
+[Unit]
+Description=Xray Connection Logger Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/xray_logger.sh
+Restart=always
+User=root
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

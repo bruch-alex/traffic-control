@@ -5,8 +5,8 @@ TC=/sbin/tc
 INTERFACE=eth0
 
 # Speeds
-RATE_LIMIT=100mbit; # Guaranteed speed
-CEIL_LIMIT=300mbit; # Maximum speed
+RATE_LIMIT=50mbit; # Guaranteed speed
+CEIL_LIMIT=150mbit; # Maximum speed
 
 #Other
 IPSET_NAME=vpn_clients

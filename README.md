@@ -1,15 +1,18 @@
 # Ограничитель скорости для xray vpn
 
-```
-sudo aiptables-A INPUT -p tcp -m tcp --dport 443 -m state --state NEW -j LOG --log-prefix "xray " --log-level 1
-```
+## Скачать этот репозиторий
 
 ```
-sudo docker exec -it 3x-ui grep -Eo 'from ([0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]{1,5}' access.log | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | sort -u
+git clone https://github.com/bruch-alex/traffic-control.git
 ```
 
-or 
+Команда для получения записей из логов 3x-ui по всем клиентам
+```
+docker exec -it 3x-ui grep 'email:' access.log
+```
+
+Отфильтровать из команды выше только айпишники клиентов 
 
 ```
-sudo docker exec -it 3x-ui grep -Eo 'from ([0-9]{1,3}\.){3}[0-9]{1,3}' access.log | cut -d ' ' -f 2 | sort -u
+docker exec -it 3x-ui grep 'email:' access.log | grep -Eo 'from ([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | sort -u
 ```
