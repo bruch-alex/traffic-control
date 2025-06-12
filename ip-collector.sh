@@ -24,8 +24,16 @@ fi
 
 # Grep ips from logs
 echo "Reading xray logs..."
-mapfile -t ips < <(awk '{print $5}' "$LOGFILE" | grep -oP '(?<=::ffff:)[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(?=\])' | sort -u)
-echo "Found ${#ips[@]} ip in logs"
+
+# Extract unique client IPs (only IPv4, without ports)
+mapfile -t ips < <(awk '{print $5}' $LOGS_FILE_PATH | grep -oP '(?<=::ffff:)[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(?=\])' | sort -u)
+
+echo "Found ${#ips[@]} unique IP(s) in logs."
+
+# Optional: print them
+for ip in "${ips[@]}"; do
+  echo "$ip"
+done
 
 # Initialize counter for new and skipped ip and iterate through logs
 new_ip_counter=0;

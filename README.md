@@ -6,13 +6,36 @@
 git clone https://github.com/bruch-alex/traffic-control.git
 ```
 
-Команда для получения записей из логов 3x-ui по всем клиентам
-```
-docker exec -it 3x-ui grep 'email:' access.log
+## Как использовать?
+
+1. Клонировать этот репозиторий
+
+	```bash
+	git clone git@github.com:bruch-alex/traffic-control.git
+	```
+
+2. Копировать скрипт в локальную папку
+
+	```bash
+	sudo cp xray_logger.sh /	/usr/local/bin/xray_logger.sh
+	```
+
+3. Сделать скрипт исполняемым
+
+	```bash
+	sudo chmod +x /usr/local/bin/xray_logger.sh 
+	```
+
+4. Копировать systemd service
+
+```bash
+sudo cp xray-log.service /etc/systemd/system/xray-log.service
 ```
 
-Отфильтровать из команды выше только айпишники клиентов 
+5. Включить systemd сервис
 
-```
-docker exec -it 3x-ui grep 'email:' access.log | grep -Eo 'from ([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | sort -u
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable xray-log.service
+sudo systemctl start xray-log.service
 ```
